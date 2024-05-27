@@ -1,21 +1,16 @@
 require("dotenv").config();
 
-const mysql = require("mysql2");
+const mariadb = require("mariadb");
 
-const pool = mysql.createPool({
+const pool = mariadb.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
 });
 
-pool.getConnection((err, connection) => {
-    if (err) {
-        console.error("Error connecting to the database:", err);
-        return;
-    }
-    if (connection) connection.release();
-    console.log("Success connection to db...");
+pool.getConnection().then((connection) => {
+    console.log("Success conexion to db...");
 });
 
 module.exports = pool;
