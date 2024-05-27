@@ -50,6 +50,11 @@ class _VentaScreenState extends State<VentaScreen> {
         ),
         actions: [
           IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/ventaHistorial');
+              },
+              icon: Icon(Icons.history)),
+          IconButton(
             onPressed: () {
               CustomDialog.showComponents(
                 context: context,
@@ -243,7 +248,6 @@ class _VentaScreenState extends State<VentaScreen> {
                       height: 50,
                       child: CustomBtn(
                         fnt: () async {
-                          {}
                           if (carrito.length == 0) {
                             CustomDialog.showMsg(
                               context: context,
@@ -255,11 +259,23 @@ class _VentaScreenState extends State<VentaScreen> {
                             );
                             return;
                           }
+                          CustomDialog.showComponents(
+                            context: context,
+                            components: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text('Cargando...'),
+                                const SizedBox(height: 20),
+                                const CircularProgressIndicator(),
+                              ],
+                            ),
+                          );
                           var request = await HttpServiceVenta().ingresar({
                             "monto": valorCarrito(),
                             "detalle": carrito,
                           });
                           if (request.statusCode == 200) {
+                            Navigator.pop(context);
                             var jsonResponse = jsonDecode(await request.stream.bytesToString());
                             var respuesta = jsonResponse['msg'];
 
