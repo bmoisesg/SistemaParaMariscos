@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:marisqueria_melmv/src/components/button.dart';
 import 'package:marisqueria_melmv/src/components/dialog/dialog.dart';
+import 'package:marisqueria_melmv/src/utils/theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
                 },
               );
             },
-            icon: const Icon(Icons.info),
+            icon: Icon(Icons.info, color: CustomTheme.orangeIcon),
           ),
         ],
       ),

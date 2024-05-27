@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:marisqueria_melmv/src/components/button.dart';
 import 'package:marisqueria_melmv/src/components/dialog/dialog.dart';
 import 'package:marisqueria_melmv/src/components/input.dart';
+import 'package:marisqueria_melmv/src/services/producto_service.dart';
+import 'package:marisqueria_melmv/src/utils/theme.dart';
 
 class InventarioAgregarScreen extends StatefulWidget {
   const InventarioAgregarScreen({super.key});
@@ -26,7 +30,7 @@ class _InventarioAgregarScreenState extends State<InventarioAgregarScreen> {
         elevation: 20,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.house),
+          icon: Icon(Icons.arrow_back_ios, color: CustomTheme.orangeIcon),
         ),
       ),
       body: Padding(
@@ -61,23 +65,40 @@ class _InventarioAgregarScreenState extends State<InventarioAgregarScreen> {
                 width: size.width * 0.8,
                 height: 50,
                 child: CustomBtn(
-                  fnt: () {
-                    CustomDialog.showComponents(
-                      context: context,
-                      components: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text('Producto agregado!!!'),
-                          const SizedBox(height: 20),
-                          CustomBtn(
-                            fnt: () {
-                              Navigator.pop(context);
-                            },
-                            title: 'Cerrar',
-                          ),
-                        ],
-                      ),
-                    );
+                  fnt: () async {
+                    if (_ctrlNombre.text == "" || _ctrlValor.text == "" || _ctrlExistencia.text == "" || _ctrlDetalle.text == "") {
+                      return;
+                    }
+                    var request = await HttpServiceProduct().ingresar({
+                      "nombre": _ctrlNombre.text,
+                      "existencia": _ctrlExistencia.text,
+                      "valor": _ctrlValor.text,
+                      "detalle": _ctrlDetalle.text,
+                    });
+                    if (request.statusCode == 200) {
+                      var jsonResponse = jsonDecode(await request.stream.bytesToString());
+                      var respuesta = jsonResponse['msg'];
+                      await CustomDialog.showComponents(
+                        context: context,
+                        components: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(respuesta.toString()),
+                            const SizedBox(height: 20),
+                            CustomBtn(
+                              fnt: () {
+                                Navigator.pop(context);
+                              },
+                              title: 'Cerrar',
+                            ),
+                          ],
+                        ),
+                      );
+                      _ctrlNombre.text = "";
+                      _ctrlExistencia.text = "";
+                      _ctrlValor.text = "";
+                      _ctrlDetalle.text = "";
+                    }
                   },
                   title: 'Ingresar',
                 ),
