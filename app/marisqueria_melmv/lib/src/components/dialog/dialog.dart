@@ -9,6 +9,7 @@ class CustomDialog {
   }) {
     return showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
@@ -38,6 +39,7 @@ class CustomDialog {
     required Widget components,
   }) {
     return showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(

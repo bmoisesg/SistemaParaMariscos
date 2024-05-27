@@ -23,6 +23,8 @@ app.get("/", async(req, res) => {
     res.json({ msg: "ready server..." });
 });
 
-const usuario = require("./models/producto");
+const producto = require("./models/producto");
+const venta = require("./models/venta");
 
-app.use("/producto", usuario);
+app.use("/producto", producto);
+app.use("/venta", venta);

@@ -30,14 +30,14 @@ class _InventarioScreenState extends State<InventarioScreen> {
         elevation: 20,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.house),
+          icon: Icon(Icons.house, color: CustomTheme.orangeIcon),
         ),
         actions: [
           IconButton(
             onPressed: () {
               setState(() {});
             },
-            icon: const Icon(Icons.refresh),
+            icon: Icon(Icons.refresh, color: CustomTheme.orangeIcon),
           )
         ],
       ),
@@ -85,6 +85,11 @@ class _InventarioScreenState extends State<InventarioScreen> {
                                   components: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
+                                      SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: Image.asset('lib/src/assets/camaron.png'),
+                                      ),
                                       const Text('Detalle del producto:'),
                                       const SizedBox(height: 10),
                                       Divider(),
@@ -115,6 +120,9 @@ class _InventarioScreenState extends State<InventarioScreen> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
+                                          SizedBox(
+                                            child: Image.asset('lib/src/assets/camaron.png'),
+                                          ),
                                           Text(listaProductos[index]['nombre']),
                                           Text(listaProductos[index]['existencia'].toString()),
                                         ],

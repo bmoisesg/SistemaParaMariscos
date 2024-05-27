@@ -5,6 +5,7 @@ import 'package:marisqueria_melmv/src/components/button.dart';
 import 'package:marisqueria_melmv/src/components/dialog/dialog.dart';
 import 'package:marisqueria_melmv/src/components/input.dart';
 import 'package:marisqueria_melmv/src/services/producto_service.dart';
+import 'package:marisqueria_melmv/src/utils/theme.dart';
 
 class InventarioAgregarScreen extends StatefulWidget {
   const InventarioAgregarScreen({super.key});
@@ -29,7 +30,7 @@ class _InventarioAgregarScreenState extends State<InventarioAgregarScreen> {
         elevation: 20,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
-          icon: const Icon(Icons.house),
+          icon: Icon(Icons.arrow_back_ios, color: CustomTheme.orangeIcon),
         ),
       ),
       body: Padding(
